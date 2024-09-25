@@ -26,6 +26,23 @@ int get_kth(int u, int k)
             res = up[res][i];
     return res;
 }
+int get_lca(int a, int b)
+{
+    if (depth[b] > depth[a])
+        swap(a, b);
+    a = get_kth(a, depth[a] - depth[b]);
+    if (a == b)
+        return a;
+    for (int i = LOGN - 1; i >= 0; --i)
+    {
+        if (up[a][i] != up[b][i])
+        {
+            a = up[a][i];
+            b = up[b][i];
+        }
+    }
+    return up[a][0];
+}
 void solve()
 {
     int n;
